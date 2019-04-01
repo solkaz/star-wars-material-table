@@ -1,3 +1,4 @@
-export const environment = {
-  production: true
+export const environment: EnvironmentConfig = {
+  production: true,
+  apiUrl: '​https://swapi.co/api/people',
 };
