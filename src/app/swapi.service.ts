@@ -12,15 +12,17 @@ export class SWApiService {
 
   getPeople(pageNumber: number) {
     return this.http.get(this.buildUrl(pageNumber)).pipe(
-      map(
-        (page: any[]): Person[] =>
-          page.map(({ name, birth_year: birthYear, height, gender }) => ({
+      map(({ count, results }: APIResponse) => ({
+        count,
+        results: results.map(
+          ({ name, birth_year: birthYear, height, gender }) => ({
             name,
             height,
             gender,
             birthYear,
-          }))
-      )
+          })
+        ),
+      }))
     );
   }
 

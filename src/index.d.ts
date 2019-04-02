@@ -29,3 +29,10 @@ interface EnvironmentConfig {
   apiUrl: string;
   production: boolean;
 }
+
+interface APIResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: any[];
+}
