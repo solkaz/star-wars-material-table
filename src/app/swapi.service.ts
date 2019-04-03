@@ -12,21 +12,23 @@ export class SWApiService {
 
   getPeople(pageNumber: number) {
     return this.http.get(this.buildUrl(pageNumber)).pipe(
-      map(({ count, results }: APIResponse) => ({
-        count,
-        results: results.map(
-          ({ name, birth_year: birthYear, height, gender }) => ({
-            name,
-            height,
-            gender,
-            birthYear,
-          })
-        ),
-      }))
+      map(
+        ({ results, ...rest }: any): APIResponse => ({
+          ...rest,
+          results: results.map(
+            ({ name, birth_year: birthYear, height, gender }) => ({
+              name,
+              height,
+              gender,
+              birthYear,
+            })
+          ),
+        })
+      )
     );
   }
 
   private buildUrl(page: number): string {
-    return `${environment.apiUrl}?page=${page + 1}`;
+    return `${environment.apiUrl}?page=${page}`;
   }
 }
