@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatTableModule,
   MatProgressSpinnerModule,
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,

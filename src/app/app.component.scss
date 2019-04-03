@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+  width: 100%;
+
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+
+.person-table-container {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.person-table-paginator {
+  width: 80%;
+}

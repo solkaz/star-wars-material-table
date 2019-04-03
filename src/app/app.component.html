@@ -1,23 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="container">
   <ng-container *ngIf="isLoading || didErrorOccur; else elseTemplate">
     <ng-container *ngIf="isLoading; else errorTemplate">
-      <mat-spinner></mat-spinner>
+      <mat-spinner class="spinner"></mat-spinner>
     </ng-container>
     <ng-template #errorTemplate>
       <h1>UhOH</h1>
     </ng-template>
   </ng-container>
   <ng-template #elseTemplate>
-    <table
-      mat-table
-      [dataSource]="data"
-      class="example-table"
-      matSort
-      matSortActive="name"
-      matSortDisableClear
-      matSortDirection="desc"
-    >
+    <table mat-table [dataSource]="data" class="person-table">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -46,5 +38,10 @@
       <tr mat-row *matRowDef="let row; columns: columns"></tr>
     </table>
   </ng-template>
-  <mat-paginator [length]="count" [pageSize]="10"></mat-paginator>
+  <mat-paginator
+    [length]="count"
+    [pageSize]="10"
+    class="person-table-paginator"
+    [ngStyle]="{ visibility: isLoading ? 'hidden' : 'visible' }"
+  ></mat-paginator>
 </div>
