@@ -19,11 +19,11 @@ describe('SWApiService', () => {
     httpTestingController = TestBed.get(HttpTestingController);
   });
 
-  it('gets data and maps it', () => {
+  it('gets data', () => {
     const service: SWApiService = TestBed.get(SWApiService);
     expect(service).toBeTruthy();
 
-    const mockResponse: APIResponse = {
+    const mockResponse: any = {
       count: 1,
       previous: null,
       next: null,
@@ -36,19 +36,9 @@ describe('SWApiService', () => {
         },
       ],
     };
-    const expected: Person[] = [
-      {
-        name: 'Luke Skywalker',
-        height: '172',
-        birth_year: '19BBY',
-        gender: 'male',
-      },
-    ];
-    service.getPeople(0).subscribe((data) => {
-      expect(data).toEqual({
-        count: 1,
-        results: expected,
-      });
+
+    service.getPeople(1).subscribe((data) => {
+      expect(data).toEqual(mockResponse);
     });
 
     const req = httpTestingController.expectOne(`${environment.apiUrl}?page=1`);

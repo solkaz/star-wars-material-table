@@ -8,7 +8,6 @@ import { SWApiService } from './swapi.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [SWApiService],
 })
 export class AppComponent implements OnInit {
   readonly columns = ['name', 'birthYear', 'height', 'gender'];

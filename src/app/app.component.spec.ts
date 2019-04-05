@@ -1,28 +1,39 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { SWApiService } from './swapi.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatTableModule,
+  MatProgressSpinnerModule,
+  MatPaginatorModule,
+} from '@angular/material';
+
+const mockSWApiService = {
+  getPeople: jasmine.createSpy('getPeople'),
+};
 
 describe('AppComponent', () => {
-  // beforeEach(async(() => {
-  //   TestBed.configureTestingModule({
-  //     declarations: [
-  //       AppComponent
-  //     ],
-  //   }).compileComponents();
-  // }));
-  // it('should create the app', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.debugElement.componentInstance;
-  //   expect(app).toBeTruthy();
-  // });
-  // it(`should have as title 'star-wars'`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.debugElement.componentInstance;
-  //   expect(app.title).toEqual('star-wars');
-  // });
-  // it('should render title in a h1 tag', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('h1').textContent).toContain('Welcome to star-wars!');
-  // });
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MatTableModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+      ],
+      declarations: [AppComponent],
+      providers: [
+        {
+          provide: SWApiService,
+          useValue: mockSWApiService,
+        },
+      ],
+    }).compileComponents();
+  }));
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  });
 });
