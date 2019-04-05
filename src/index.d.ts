@@ -16,7 +16,7 @@ interface Person {
    * "BBY" (Before the Battle of Yavin) or "ABY" (After the Battle of Yavin).
    * If unknown, value is "unknown".
    */
-  birthYear: string;
+  birth_year: string;
   /**
    * The gender of this person.
    * "n/a" denotes that a person does not have a gender.

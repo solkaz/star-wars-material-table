@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { of as ObservableOf } from 'rxjs';
-import { catchError, map, switchMap, startWith } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { SWApiService } from './swapi.service';
 
 @Component({
@@ -10,36 +10,48 @@ import { SWApiService } from './swapi.service';
   styleUrls: ['./app.component.scss'],
   providers: [SWApiService],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit {
   readonly columns = ['name', 'birthYear', 'height', 'gender'];
-  title = 'star-wars';
-  isLoading = true;
+  // Number of people in the Star Wars API
   count = 0;
-  didErrorOccur = false;
-  hasPreviousPage = false;
-  hasNextPage = false;
+  // People that are currently displayed.
   data: Person[] = [];
+  isLoading = true;
+  didErrorOccur = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private swapi: SWApiService) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
+    // Subscribe to page change events.
     this.paginator.page
       .pipe(
-        startWith({ pageIndex: 0 }),
-        switchMap(({ pageIndex }) => {
+        // Extract the current page whenever it changes.
+        map(({ pageIndex }) => pageIndex),
+        // Have to start with 0 because page doesn't emit its initial value.
+        startWith(0),
+        switchMap((pageIndex) => {
           this.isLoading = true;
+          // Paging on SWAPI is 1-indexed, so add 1
           return this.swapi.getPeople(pageIndex + 1);
         }),
-        map((response) => {
+        // Extract the count and results from the response
+        map(({ count, results }) => {
+          // Display the table
           this.isLoading = false;
-          this.count = response.count;
-          this.hasNextPage = response.next !== null;
-          this.hasPreviousPage = response.previous !== null;
-          return response.results;
+          // Set the count (for the paginator)
+          this.count = count;
+          return results.map(({ name, birth_year, height, gender }) => ({
+            name,
+            birth_year,
+            height,
+            gender,
+          }));
         }),
-        catchError((err, caught) => {
+        catchError(() => {
+          // Display an error view.
+          this.didErrorOccur = true;
           return ObservableOf([]);
         })
       )

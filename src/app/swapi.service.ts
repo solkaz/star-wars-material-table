@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from './../environments/environment';
-
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +9,7 @@ export class SWApiService {
   constructor(private http: HttpClient) {}
 
   getPeople(pageNumber: number) {
-    return this.http.get(this.buildUrl(pageNumber)).pipe(
-      map(
-        ({ results, ...rest }: any): APIResponse => ({
-          ...rest,
-          results: results.map(
-            ({ name, birth_year: birthYear, height, gender }) => ({
-              name,
-              height,
-              gender,
-              birthYear,
-            })
-          ),
-        })
-      )
-    );
+    return this.http.get<APIResponse>(this.buildUrl(pageNumber));
   }
 
   private buildUrl(page: number): string {

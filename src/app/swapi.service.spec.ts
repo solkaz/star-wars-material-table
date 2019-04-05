@@ -40,7 +40,7 @@ describe('SWApiService', () => {
       {
         name: 'Luke Skywalker',
         height: '172',
-        birthYear: '19BBY',
+        birth_year: '19BBY',
         gender: 'male',
       },
     ];
