@@ -109,6 +109,18 @@ describe('AppComponent', () => {
       expect(table).not.toBeNull();
       expect(table.componentInstance.dataSource).toBe(appInstance.data);
 
+      const getTextFromColumn = (
+        columnName: 'name' | 'birth-year' | 'gender' | 'height'
+      ) => {
+        return table.nativeElement.querySelector(`.person-${columnName}`)
+          .innerText;
+      };
+
+      expect(getTextFromColumn('name')).toBe('Luke Skywalker');
+      expect(getTextFromColumn('birth-year')).toBe('19BBY');
+      expect(getTextFromColumn('height')).toBe('172');
+      expect(getTextFromColumn('gender')).toBe('male');
+
       const paginator = getPaginator(fixture);
       expect(paginator.styles.visibility).toBe('visible');
       expect(paginator.componentInstance.length).toBe(appInstance.count);
