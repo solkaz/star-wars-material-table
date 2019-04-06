@@ -10,12 +10,25 @@ import { SWApiService } from './swapi.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  /**
+   * Columns to be displayed by MatTable.
+   */
   readonly columns = ['name', 'birthYear', 'height', 'gender'];
-  // Number of people in the Star Wars API
+  /**
+   * Number of people in the Star Wars API.
+   */
   count = 0;
-  // People that are currently displayed.
+  /**
+   * People that are currently displayed in the table.
+   */
   data: Person[] = [];
+  /**
+   * Is data being requested?
+   */
   isLoading = true;
+  /**
+   * Did an error occur (so an error message can be displayed)?
+   */
   didErrorOccur = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
