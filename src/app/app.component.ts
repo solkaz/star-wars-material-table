@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
         catchError(() => {
           // Display an error view.
           this.didErrorOccur = true;
+          this.isLoading = false;
           return ObservableOf([]);
         })
       )

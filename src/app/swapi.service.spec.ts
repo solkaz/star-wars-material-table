@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { SWApiService } from './swapi.service';
+import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
+import { SWApiService } from './swapi.service';
 
 describe('SWApiService', () => {
   let httpClient: HttpClient;

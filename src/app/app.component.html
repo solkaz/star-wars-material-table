@@ -1,7 +1,7 @@
 <div class="container">
   <ng-container *ngIf="didErrorOccur || isLoading; else displayTable">
     <ng-container *ngIf="didErrorOccur; else loadingTemplate">
-      <h1>
+      <h1 id="error-message">
         Error occurred while loading data. Reload the page, or try again later.
       </h1>
     </ng-container>
@@ -39,7 +39,7 @@
   <mat-paginator
     [length]="count"
     [pageSize]="10"
-    [style.visibility]="isLoading ? 'hidden' : 'visible'"
+    [style.visibility]="isLoading || didErrorOccur ? 'hidden' : 'visible'"
     class="person-table-paginator"
   ></mat-paginator>
 </div>
